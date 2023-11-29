@@ -8,6 +8,7 @@ import mk.finki.ukim.mk.lab.service.BookService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookServiceImplementation implements BookService {
@@ -26,14 +27,26 @@ public class BookServiceImplementation implements BookService {
 
     @Override
     public Author addAuthorToBook(Long authorId, String isbn) {
-        Book book = bookRepository.findByIsbn(isbn);
+        Book book = bookRepository.findByIsbn(isbn).orElse(null);
         Author author = authorRepository.findById(authorId).orElse(null);
         bookRepository.addAuthorToBook(author,book);
         return author;
     }
 
     @Override
-    public Book findBookByIsbn(String isbn) {
+    public Optional<Book> findBookByIsbn(String isbn) {
         return bookRepository.findByIsbn(isbn);
+    }
+    public void save(String isbn, String title, String genre, Integer year, Long bookStoreId){
+        bookRepository.addBook(isbn,title,genre,year,bookStoreId);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        bookRepository.deleteById(id);
+    }
+    @Override
+    public Optional<Book> findById(Long id) {
+        return bookRepository.findById(id);
     }
 }

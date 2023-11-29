@@ -1,6 +1,7 @@
 package mk.finki.ukim.mk.lab.service;
 
 import mk.finki.ukim.mk.lab.model.Author;
+import mk.finki.ukim.mk.lab.model.Book;
 
 import java.util.List;
 

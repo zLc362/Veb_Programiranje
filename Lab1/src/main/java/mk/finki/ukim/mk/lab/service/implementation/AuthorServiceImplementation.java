@@ -1,6 +1,7 @@
 package mk.finki.ukim.mk.lab.service.implementation;
 
 import mk.finki.ukim.mk.lab.model.Author;
+import mk.finki.ukim.mk.lab.model.Book;
 import mk.finki.ukim.mk.lab.repository.AuthorRepository;
 import mk.finki.ukim.mk.lab.service.AuthorService;
 import org.springframework.stereotype.Service;
@@ -24,4 +25,5 @@ public class AuthorServiceImplementation implements AuthorService {
     public Author findById(Long id) {
         return authorRepository.findById(id).orElse(null);
     }
+
 }
