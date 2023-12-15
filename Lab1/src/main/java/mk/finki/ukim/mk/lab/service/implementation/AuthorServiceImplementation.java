@@ -1,8 +1,8 @@
 package mk.finki.ukim.mk.lab.service.implementation;
 
 import mk.finki.ukim.mk.lab.model.Author;
-import mk.finki.ukim.mk.lab.model.Book;
-import mk.finki.ukim.mk.lab.repository.AuthorRepository;
+import mk.finki.ukim.mk.lab.repository.impl.InMemoryAuthorRepository;
+import mk.finki.ukim.mk.lab.repository.jpa.AuthorRepository;
 import mk.finki.ukim.mk.lab.service.AuthorService;
 import org.springframework.stereotype.Service;
 

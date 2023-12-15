@@ -1,0 +1,37 @@
+<html lang="mk" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Books Homepage - Welcome to My Book Store</title>
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Welcome to My Book Store</h1>
+</header>
+<h2>Choose book:</h2>
+<ul>
+    <li th:each="bookstore : ${bookStores}"><span th:text="${bookstore.getName()} +' - '+ ${bookstore.getCity()}+' - '+${bookStoreService.priceWithDiscount(bookstore.getId())}"></span>
+        <form th:method="get" th:action="@{'bookStore/edit-form/{id}' (id=${bookstore.getId()})}" style="display: inline">
+            <input type="submit" value="Edit" style="display: inline">
+        </form>
+        <form th:method="delete" th:action="@{'bookStore/delete/{bookId}' (bookId=${bookstore.getId()})}" style="display: inline">
+            <input type="submit" value="Delete" style="display: inline">
+        </form>
+        <ul>
+            <li th:each="book:${bookStoreService.getAllBooks(bookstore.getId())}"><span th:text="${book.getTitle()}+' - '+${bookService.getPriceWithDiscount(book.getId())}+' - '+${bookstore.getNumOfCopiesSold()}"></span></li>
+        </ul>
+    </li>
+</ul>
+<br/>
+<button>
+    <a href="/bookStore/add-form" type="button">Add new book</a>
+</button>
+</body>
+</html>

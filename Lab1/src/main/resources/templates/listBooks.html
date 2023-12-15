@@ -18,12 +18,17 @@
 <form th:method="get" th:action="@{/authors}" id="main-form"></form>
     <h2>Choose book:</h2>
     <ul>
-        <li th:each="book : ${books}"><input form="main-form" type="radio" name="bookIsbn" th:value="${book.getIsbn()}" th:text="${book.getBookStore() != null} ? ${book.getTitle()} + ' ' + ${book.getBookStore().getName()} : ${book.getTitle()} + ' ' + 'No Bookstore'">
+        <li th:each="book : ${books}">
+            <input form="main-form" type="radio" name="bookIsbn"
+                   th:value="${book.getIsbn()}" th:text="${book.getTitle()}+' - '+(${book.getBookStore() != null} ? ${book.getBookStore().getName()} : 'No Bookstore')+' - '+(${reviews.findByBookId(book.getId()).size() !=0}?${#numbers.formatDecimal(reviews.findAvgReviewScoreByBookId(book.getId()),0,1)}:0)">
             <form th:method="get" th:action="@{'books/edit-form/{id}' (id=${book.getId()})}" style="display: inline">
                 <input type="submit" value="Edit" style="display: inline">
             </form>
             <form th:method="delete" th:action="@{'books/delete/{bookId}' (bookId=${book.getId()})}" style="display: inline">
                 <input type="submit" value="Delete" style="display: inline">
+            </form>
+            <form th:method="get" th:action="@{'reviews/{id}' (id=${book.getId()})}" style="display: inline">
+                <input type="submit" value="Details and Reviews" style="display: inline">
             </form>
         </li>
     </ul>
@@ -31,6 +36,9 @@
     <input type='submit' value='Submit' form="main-form">
 <button>
     <a href="/books/add-form" type="button">Add new book</a>
+</button>
+<button>
+    <a href="/books/reviews" type="button">Look at reviews</a>
 </button>
 </body>
 </html>

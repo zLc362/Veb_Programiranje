@@ -15,9 +15,43 @@
     <h2 th:text="Year + ' ' + ${book.getYear()}">Year</h2>
     <h2>Authors:</h2>
     <ul>
-        <li th:text="${author.getName()} + ' ' + ${author.getSurname()}" th:each="author : ${book.getAuthors()}"></li>
+        <li th:text="${author.getFullname().getName()}" th:each="author : ${book.getAuthors()}"></li>
     </ul>
+    <h2 th:text="Price + ' ' + ${bookService.getPriceWithDiscount(book.getId())}"></h2>
 </section>
+<table>
+    <tr>
+        <th>Score</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th>Time</th>
+    </tr>
+    <tr th:each="review : ${reviews}">
+        <td th:text="${review.getScore()}"></td>
+        <td th:text="${review.getDescription()}"></td>
+        <td th:text="${#temporals.format(review.getTimestamp(), 'dd-MM-yyyy')}"></td>
+        <td th:text="${#temporals.format(review.getTimestamp(), 'HH:mm:ss')}"></td>
+    </tr>
+</table>
+<div class="form-group">
+    <form action="/reviews/filter" method="post">
+        <input type="hidden" name="bookId" th:value="${book.getId()}">
+        <label for="from">From</label>
+        <input type="datetime-local"
+               class="form-control"
+               id="from"
+               name="from">
+        <label for="to">To</label>
+        <input type="datetime-local"
+               class="form-control"
+               id="to"
+               name="to">
+        <input type="submit" value="Filter">
+    </form>
+</div>
 <button><a href="/books">Back</a></button>
+<form th:method="get" th:action="@{'add/{id}' (id=${book.getId()})}" style="display: inline">
+    <input type="submit" value="Leave a Review" style="display: inline">
+</form>
 </body>
 </html>

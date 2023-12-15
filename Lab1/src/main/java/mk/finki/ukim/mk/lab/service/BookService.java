@@ -12,8 +12,10 @@ public interface BookService {
     Optional<Book> findBookByIsbn(String isbn);
 
 
-    void save(String isbn, String title, String genre, Integer year, Long bookStoreId);
+    void save(Long id,String isbn, String title, String genre, Integer year, Long bookStoreId);
 
     void deleteById(Long id);
     Optional<Book> findById(Long id);
+    void initializeAllTables();
+    Double getPriceWithDiscount(Long id);
 }

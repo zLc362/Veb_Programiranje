@@ -1,5 +1,6 @@
 package mk.finki.ukim.mk.lab.model;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -8,43 +9,50 @@ import java.util.Map;
 import java.util.Random;
 
 @Data
+@Entity
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     public String isbn;
     public String title;
     public String genre;
     public int year;
+    @ManyToMany
     public List<Author> authors;
+    @ManyToOne
     private BookStore bookStore;
+    @ManyToOne
+    private BookPrice bookPrice;
 
-    public Book(BookStore bookStore, Long id,String isbn, String title, String genre, int year, List<Author> authors) {
+    public Book() {
+    }
+
+    public Book(BookStore bookStore, String isbn, String title, String genre, int year, List<Author> authors) {
         this.isbn = isbn;
         this.title = title;
         this.genre = genre;
         this.year = year;
         this.authors = authors;
-        this.id = id;
         this.bookStore = bookStore;
     }
 
-    public Book(BookStore bookStore,Long id,String isbn, String title, String genre, int year) {
+    public Book(BookStore bookStore,String isbn, String title, String genre, int year) {
         this.isbn = isbn;
         this.title = title;
         this.genre = genre;
         this.year = year;
         this.authors = new ArrayList<>();
-        this.id = id;
         this.bookStore = bookStore;
     }
-    public Book(BookStore bookStore,String isbn, String title, String genre, int year) {
-        Random rnd = new Random();
+
+    public Book(String isbn, String title, String genre, int year, BookStore bookStore, BookPrice bookPrice) {
         this.isbn = isbn;
         this.title = title;
         this.genre = genre;
         this.year = year;
-        this.authors = new ArrayList<>();
-        this.id = rnd.nextLong(1000,10000);
         this.bookStore = bookStore;
+        this.bookPrice = bookPrice;
     }
 
     public void addAuthor(Author author){

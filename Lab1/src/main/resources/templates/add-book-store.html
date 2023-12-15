@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="mk" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <title>Add a new book</title>
+</head>
+<body>
+<form action="/bookStore/add" method="post">
+  <label for="name">Name</label>
+  <input id="name" type="text" name="name" th:value="(${bookStore} != null ? ${bookStore.getName()} : '')" placeholder="Name">
+  <br>
+  <label for="city">City</label>
+  <input id="city" type="text" name="city" th:value="(${bookStore} != null ? ${bookStore.getCity()} : '')" placeholder="City">
+  <br>
+  <label for="adress">Adress</label>
+  <input id="adress" type="text" name="adress" th:value="(${bookStore} != null ? ${bookStore.getAddress()} : '')" placeholder="Adress">
+  <br>
+  <input hidden="hidden" id="id" type="text" name="id" th:value="${bookStore} != null ? ${bookStore.getId()} : 1">
+  <button id="submit" type="submit">Submit</button>
+  <br>
+  <a type="button" class="btn btn-primary" href="/bookStore">Back</a>
+</form>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="mk" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <title>Add a new book</title>
+</head>
+<body>
+<form action="/reviews/add" method="post">
+  <label for="score">Score</label>
+  <input id="score" type="number" min="1" max="5" name="score" placeholder="Score">
+  <br>
+  <label for="description">Description</label>
+  <input id="description" type="text" name="description" placeholder="Description">
+  <br>
+  <label for="dateTime">Date and Time</label>
+  <input id="dateTime" type="datetime-local" name="dateTime">
+  <br>
+  <input hidden="hidden" id="bookId" type="text" name="bookId" th:value="(${book} != null ? ${book.getId()} : 0)">
+  <button id="submit" type="submit">Submit</button>
+  <br>
+  <a type="button" href="/books">Back</a>
+</form>
+</body>
+</html>
